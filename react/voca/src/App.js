@@ -1,15 +1,27 @@
-import './App.css';
-import Hello from './component/Hello';
-import styles from './App.module.css'
+import Day from './component/Day';
+import DayList from './component/DayList';
+import Header from './component/Header';
+import EmptyPage from './component/EmptyPage';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 function App() {
-  return (
-    <div className="App">
-      <Hello age={10}/>
-      <Hello age={20}/>
-      <Hello age={30}/>
-      <div class Name={styles.box}>App</div>
-    </div>
+  return(
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <DayList/>
+          </Route>
+          <Route path="/day/:day">
+            <Day />
+          </Route>
+          <Route>
+            <EmptyPage />
+          </Route>
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

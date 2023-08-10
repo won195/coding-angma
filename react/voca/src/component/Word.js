@@ -1,7 +1,7 @@
 import { useState } from "react-router-dom";
 
-export default function Word(props){
-  const [word, setWord] = useState();
+export default function Word({ word : w}){
+  const [word, setWord] = useState(w);
   const [isShow, setIsShow] = useState(false);
   const [isDone, setIsDone] = useState(word.isDone);
 
@@ -27,11 +27,19 @@ export default function Word(props){
     });
   }
 
+  if(word.id === 0 ){
+    return null;
+  }
+
   function del() {
     if(window.confirm('삭제 하시겠습니까?')){
       fetch(`http://localhost:3001/words/${word.id}`,{
         method : 'DELETE',
-      });
+      }).then(res => {
+        if(res.ok){
+          setWord({id: 0});
+        }
+      })
     }
   }
 
